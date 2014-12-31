@@ -18,7 +18,7 @@
           (catch SecurityException e#)
           (finally (System/setSecurityManager old-sm#)))))
 
-(defn- copy [tf dir]
+(defn copy [tf dir]
   (let [f (core/tmpfile tf)]
     (io/copy f (doto (io/file dir (:path tf)) io/make-parents))))
 

@@ -7,7 +7,7 @@
 (require '[adzerk.bootlaces :refer :all]
          '[alandipert.boot-trinkets :refer [run]])
 
-(def +version+ "1.0.0")
+(def +version+ "1.0.1")
 
 (bootlaces! +version+)
 
