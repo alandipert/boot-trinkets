@@ -14,7 +14,7 @@
 (task-options!
  pom  {:project     'alandipert/boot-trinkets
        :version     +version+
-       :description "Alan's boot trinkets"
+       :description "Alan's odd collection of boot tasks and utilities"
        :url         "https://github.com/alandipert/boot-trinkets"
        :scm         {:url "https://github.com/alandipert/boot-trinkets"}
        :license     {:name "Eclipse Public License"
