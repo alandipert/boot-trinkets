@@ -5,21 +5,8 @@
             [boot.util       :as util]
             [clojure.java.io :as io]))
 
-(defmacro without-exiting
-  "Evaluates body in a context where System/exit doesn't work.
-  Returns result of evaluating body, or nil if code in body attempted to exit."
-  [& body]
-  `(let [old-sm# (System/getSecurityManager)
-         new-sm# (proxy [SecurityManager] []
-                   (checkPermission [p#])
-                   (checkExit [s#] (throw (SecurityException.))))]
-     (System/setSecurityManager ^SecurityManager new-sm#)
-     (try ~@body
-          (catch SecurityException e#)
-          (finally (System/setSecurityManager old-sm#)))))
-
 (defn copy [tf dir]
-  (let [f (core/tmpfile tf)]
+  (let [f (core/tmp-file tf)]
     (io/copy f (doto (io/file dir (:path tf)) io/make-parents))))
 
 (defn run-main
@@ -34,7 +21,7 @@
   "Add classes to a pod and run a main method."
   [m main CLASSNAME sym   "The main class"
    a args ARGUMENTS [str] "String arguments to pass to the main class's main method"]
-  (let [classdir (core/temp-dir!)
+  (let [classdir (core/tmp-dir!)
         runners  (pod/pod-pool (core/get-env))]
     (core/with-pre-wrap fileset
       (let [class-files (->> fileset
